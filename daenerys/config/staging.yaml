@@ -1,0 +1,12 @@
+env: stg
+
+server:
+  host: 0.0.0.0
+  grpc_port: 50051
+  http_port: 80
+  graceful_shutdown_timeout: 10s
+
+judge:
+  sandbox_memory_overhead_mb: 256
+  max_river_workers: 10
+  max_concurrent_sandboxes: 10

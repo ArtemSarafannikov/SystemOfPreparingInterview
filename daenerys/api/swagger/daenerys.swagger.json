@@ -1,0 +1,355 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/daenerys.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Daenerys"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/daenerys.Daenerys/GetSubmission": {
+      "post": {
+        "operationId": "Daenerys_GetSubmission",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/daenerysSubmission"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/daenerysGetSubmissionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Daenerys"
+        ]
+      }
+    },
+    "/daenerys.Daenerys/ListSubmissions": {
+      "post": {
+        "operationId": "Daenerys_ListSubmissions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/daenerysListSubmissionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/daenerysListSubmissionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Daenerys"
+        ]
+      }
+    },
+    "/daenerys.Daenerys/SendSubmission": {
+      "post": {
+        "operationId": "Daenerys_SendSubmission",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/daenerysSubmission"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/daenerysSendSubmissionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Daenerys"
+        ]
+      }
+    },
+    "/daenerys.Daenerys/UpdateSubmissionStatus": {
+      "post": {
+        "operationId": "Daenerys_UpdateSubmissionStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/daenerysSubmission"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/daenerysUpdateSubmissionStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Daenerys"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ListSubmissionsRequestFilter": {
+      "type": "object",
+      "properties": {
+        "submissionIdIn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "problemIdEq": {
+          "type": "string"
+        },
+        "userIdEq": {
+          "type": "string"
+        }
+      }
+    },
+    "ListSubmissionsRequestOrderByField": {
+      "type": "string",
+      "enum": [
+        "CREATED_AT"
+      ],
+      "default": "CREATED_AT"
+    },
+    "daenerysGetSubmissionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "daenerysListSubmissionsRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/ListSubmissionsRequestFilter"
+        },
+        "orderBy": {
+          "$ref": "#/definitions/ListSubmissionsRequestOrderByField"
+        },
+        "orderDirection": {
+          "$ref": "#/definitions/daenerysOrderDirection"
+        },
+        "pagination": {
+          "$ref": "#/definitions/daenerysPagination"
+        }
+      }
+    },
+    "daenerysListSubmissionsResponse": {
+      "type": "object",
+      "properties": {
+        "submissions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/daenerysSubmission"
+          }
+        },
+        "totalItems": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "daenerysOrderDirection": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "default": "ASC"
+    },
+    "daenerysPagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "perPage": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "daenerysProgrammingLanguage": {
+      "type": "string",
+      "enum": [
+        "LANGUAGE_UNKNOWN",
+        "LANGUAGE_PYTHON_3_12"
+      ],
+      "default": "LANGUAGE_UNKNOWN"
+    },
+    "daenerysSendSubmissionRequest": {
+      "type": "object",
+      "properties": {
+        "problemId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "language": {
+          "$ref": "#/definitions/daenerysProgrammingLanguage"
+        }
+      }
+    },
+    "daenerysSubmission": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "UUID"
+        },
+        "problemId": {
+          "type": "string",
+          "title": "ID задачи (UUID)"
+        },
+        "userId": {
+          "type": "string",
+          "title": "ID пользователя (UUID)"
+        },
+        "status": {
+          "$ref": "#/definitions/daenerysSubmissionStatus",
+          "title": "Статус проверки решения"
+        },
+        "code": {
+          "type": "string",
+          "title": "Код решения пользователя"
+        },
+        "language": {
+          "$ref": "#/definitions/daenerysProgrammingLanguage",
+          "title": "Язык программирования решения"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Время последнего обновление"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Время создания"
+        }
+      }
+    },
+    "daenerysSubmissionStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_UNKNOWN",
+        "STATUS_NEW",
+        "STATUS_JUDGING",
+        "STATUS_OK",
+        "STATUS_WRONG_ANSWER",
+        "STATUS_RUNTIME_ERROR",
+        "STATUS_TIME_LIMIT_EXCEEDED",
+        "STATUS_MEMORY_LIMIT_EXCEEDED",
+        "STATUS_COMPILATION_ERROR",
+        "STATUS_INTERNAL_ERROR"
+      ],
+      "default": "STATUS_UNKNOWN"
+    },
+    "daenerysUpdateSubmissionStatusRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/daenerysSubmissionStatus"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

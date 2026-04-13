@@ -1,0 +1,21 @@
+env: dev
+
+server:
+  host: 0.0.0.0
+  grpc_port: 50051
+  http_port: 80
+  graceful_shutdown_timeout: 5s
+
+database:
+  host: host.docker.internal
+  port: 5432
+  user: postgres
+  password: postgres
+  name: daenerys
+  ssl_mode: disable
+  max_open_connections: 10
+
+judge:
+  sandbox_memory_overhead_mb: 256
+  max_river_workers: 10
+  max_concurrent_sandboxes: 10

@@ -1,0 +1,24 @@
+env: dev # dev/stg/prod
+
+# config of go app
+server:
+  host: 0.0.0.0 # recomended 0.0.0.0 for all ip listening
+  grpc_port: 50051
+  http_port: 80 # port for grpc gateway and swagger
+  graceful_shutdown_timeout: 5s
+
+# config of postgres
+database:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres
+  name: postgres
+  ssl_mode: disable
+  max_open_connections: 10
+
+# Judge / Docker sandbox (memory cgroup = problem memory_limit_kb + overhead)
+judge:
+  sandbox_memory_overhead_mb: 256
+  max_river_workers: 10
+  max_concurrent_sandboxes: 10

@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package daenerys;
+
+option go_package = "github.com/CodefriendOrg/daenerys/pkg/daenerys;daenerys";
+
+import "google/protobuf/timestamp.proto";
+
+service Daenerys {
+  rpc SendSubmission(SendSubmissionRequest) returns (Submission);
+  rpc UpdateSubmissionStatus(UpdateSubmissionStatusRequest) returns (Submission);
+
+  rpc GetSubmission(GetSubmissionRequest) returns (Submission);
+  rpc ListSubmissions(ListSubmissionsRequest) returns (ListSubmissionsResponse);
+}
+
+enum OrderDirection {
+  ASC = 0;
+  DESC = 1;
+}
+
+message Pagination {
+  uint64 page = 1;
+  uint64 per_page = 2;
+}
+
+
+enum ProgrammingLanguage {
+  LANGUAGE_UNKNOWN = 0;
+  LANGUAGE_PYTHON_3_12 = 1;
+}
+
+enum SubmissionStatus {
+  STATUS_UNKNOWN = 0;
+  STATUS_NEW = 1;
+  STATUS_JUDGING = 2;
+  STATUS_OK = 3;
+  STATUS_WRONG_ANSWER = 4;
+  STATUS_RUNTIME_ERROR = 5;
+  STATUS_TIME_LIMIT_EXCEEDED = 6;
+  STATUS_MEMORY_LIMIT_EXCEEDED = 7;
+  STATUS_COMPILATION_ERROR = 8;
+  STATUS_INTERNAL_ERROR = 9;
+}
+
+message Submission {
+  // UUID
+  string id = 1;
+  // ID задачи (UUID)
+  string problem_id = 2;
+  // ID пользователя (UUID)
+  string user_id = 3;
+  // Статус проверки решения
+  SubmissionStatus status = 4;
+  // Код решения пользователя
+  string code = 5;
+  // Язык программирования решения
+  ProgrammingLanguage language = 6;
+  // Время последнего обновление
+  google.protobuf.Timestamp updated_at = 7;
+  // Время создания
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message SendSubmissionRequest {
+  string problem_id = 1;
+  string user_id = 2;
+  string code = 3;
+  ProgrammingLanguage language = 4;
+}
+
+message UpdateSubmissionStatusRequest {
+  string id = 1;
+  SubmissionStatus status = 2;
+}
+
+message GetSubmissionRequest {
+  string id = 1;
+}
+
+message ListSubmissionsRequest {
+  message Filter {
+    repeated string submission_id_in = 1;
+    optional string problem_id_eq = 2;
+    optional string user_id_eq = 3;
+  }
+  enum OrderByField {
+    CREATED_AT = 0;
+  }
+
+  Filter filter = 1;
+  OrderByField order_by = 2;
+  OrderDirection order_direction = 3;
+  Pagination pagination = 4;
+}
+
+message ListSubmissionsResponse {
+  repeated Submission submissions = 1;
+  uint64 total_items = 2;
+}
