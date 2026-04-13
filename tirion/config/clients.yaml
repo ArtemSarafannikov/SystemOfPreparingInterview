@@ -1,0 +1,10 @@
+package: config
+mock:
+  pb_file_path: ./internal/pb
+  mocks_output: ./internal/mock
+  package: mock
+
+clients:
+  - service: "codefriend-kingsguard-zsqd1w:50051"
+    package: "github.com/CodefriendOrg/tirion/internal/pb/github.com/CodefriendOrg/kingsguard/pkg/kingsguard"
+    client: KingsguardClient

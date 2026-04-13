@@ -1,0 +1,439 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/tirion.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Tirion"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/tirion.Tirion/CreateProblem": {
+      "post": {
+        "operationId": "Tirion_CreateProblem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tirionProblem"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tirionCreateProblemRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Tirion"
+        ]
+      }
+    },
+    "/tirion.Tirion/GetProblem": {
+      "post": {
+        "operationId": "Tirion_GetProblem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tirionGetProblemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tirionGetProblemRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Tirion"
+        ]
+      }
+    },
+    "/tirion.Tirion/ListProblems": {
+      "post": {
+        "operationId": "Tirion_ListProblems",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tirionListProblemsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tirionListProblemsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Tirion"
+        ]
+      }
+    },
+    "/tirion.Tirion/ListTests": {
+      "post": {
+        "operationId": "Tirion_ListTests",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tirionListTestsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tirionListTestsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Tirion"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "tirionCreateProblemRequest": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "authorId": {
+          "type": "string"
+        },
+        "timeLimitMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "memoryLimitKb": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "tirionGetProblemRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "withTests": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tirionGetProblemResponse": {
+      "type": "object",
+      "properties": {
+        "problem": {
+          "$ref": "#/definitions/tirionProblem"
+        },
+        "tests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tirionTest"
+          }
+        }
+      }
+    },
+    "tirionListProblemsRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/tirionListProblemsRequestFilter"
+        },
+        "orderBy": {
+          "$ref": "#/definitions/tirionListProblemsRequestOrderByField"
+        },
+        "orderDirection": {
+          "$ref": "#/definitions/tirionOrderDirection"
+        },
+        "pagination": {
+          "$ref": "#/definitions/tirionPagination"
+        }
+      }
+    },
+    "tirionListProblemsRequestFilter": {
+      "type": "object",
+      "properties": {
+        "idIn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorIdEq": {
+          "type": "string"
+        },
+        "createdAtLte": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAtGte": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "tirionListProblemsRequestOrderByField": {
+      "type": "string",
+      "enum": [
+        "CREATED_AT"
+      ],
+      "default": "CREATED_AT"
+    },
+    "tirionListProblemsResponse": {
+      "type": "object",
+      "properties": {
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tirionProblem"
+          }
+        },
+        "totalItems": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "tirionListTestsRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/tirionListTestsRequestFilter"
+        },
+        "orderBy": {
+          "$ref": "#/definitions/tirionListTestsRequestOrderByField"
+        },
+        "orderDirection": {
+          "$ref": "#/definitions/tirionOrderDirection"
+        },
+        "pagination": {
+          "$ref": "#/definitions/tirionPagination"
+        }
+      }
+    },
+    "tirionListTestsRequestFilter": {
+      "type": "object",
+      "properties": {
+        "problemIdEq": {
+          "type": "string"
+        },
+        "withHidden": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tirionListTestsRequestOrderByField": {
+      "type": "string",
+      "enum": [
+        "CREATED_AT"
+      ],
+      "default": "CREATED_AT"
+    },
+    "tirionListTestsResponse": {
+      "type": "object",
+      "properties": {
+        "tests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/tirionTest"
+          }
+        },
+        "totalItems": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "tirionOrderDirection": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "default": "ASC"
+    },
+    "tirionPagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "perPage": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "tirionProblem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "UUID"
+        },
+        "summary": {
+          "type": "string",
+          "title": "Краткое описание задачи"
+        },
+        "description": {
+          "type": "string",
+          "title": "Описание задачи"
+        },
+        "timeLimitMs": {
+          "type": "string",
+          "format": "int64",
+          "title": "Время обработки ответа в миллисекундах"
+        },
+        "memoryLimitKb": {
+          "type": "string",
+          "format": "int64",
+          "description": "Лимит памяти решения (user-space + куча интерпретатора), в килобайтах. В daenerys к лимиту Docker cgroup\r\nдобавляется настраиваемый overhead (базовый образ и рантайм), чтобы контейнер стабильно стартовал."
+        },
+        "authorId": {
+          "type": "string",
+          "title": "ID автора (UUID)"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Последнее обновление задачи"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Время создания"
+        }
+      },
+      "title": "Задача"
+    },
+    "tirionTest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "ID теста"
+        },
+        "problemId": {
+          "type": "string",
+          "title": "ID задачи (UUID)"
+        },
+        "inputData": {
+          "type": "string",
+          "title": "Входные данные"
+        },
+        "outputData": {
+          "type": "string",
+          "title": "Ожидаемый выход"
+        },
+        "isHidden": {
+          "type": "boolean",
+          "title": "Скрытый тест"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Последнее обновление задачи"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Время создания"
+        }
+      },
+      "title": "Тест к задаче"
+    }
+  }
+}
