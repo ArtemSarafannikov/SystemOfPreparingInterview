@@ -1,0 +1,16 @@
+env: dev
+
+server:
+  host: 0.0.0.0
+  grpc_port: 50051
+  http_port: 80
+  graceful_shutdown_timeout: 5s
+
+database:
+  host: host.docker.internal
+  port: 5432
+  user: postgres
+  password: postgres
+  name: kingsguard
+  ssl_mode: disable
+  max_open_connections: 25

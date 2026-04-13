@@ -1,0 +1,27 @@
+version: v1
+plugins:
+  - name: go
+    out: internal/pb
+    opt:
+    - paths=source_relative
+    strategy: directory
+
+  - name: go-grpc
+    out: internal/pb
+    opt:
+    - paths=source_relative
+    strategy: directory
+
+  - name: grpc-gateway
+    out: internal/pb
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
+
+  - name: openapiv2
+    out: api/swagger
+    opt:
+      - logtostderr=true
+      - allow_merge=true
+      - merge_file_name=kingsguard
+      - generate_unbound_methods=true

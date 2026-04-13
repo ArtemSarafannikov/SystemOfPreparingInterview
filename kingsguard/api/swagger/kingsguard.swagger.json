@@ -1,0 +1,275 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/kingsguard.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Kingsguard"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/kingsguard.Kingsguard/GetUser": {
+      "post": {
+        "operationId": "Kingsguard_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/kingsguardGetUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/kingsguardGetUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Kingsguard"
+        ]
+      }
+    },
+    "/kingsguard.Kingsguard/Login": {
+      "post": {
+        "operationId": "Kingsguard_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/kingsguardLoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/kingsguardLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Kingsguard"
+        ]
+      }
+    },
+    "/kingsguard.Kingsguard/Register": {
+      "post": {
+        "operationId": "Kingsguard_Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/kingsguardRegisterResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/kingsguardRegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Kingsguard"
+        ]
+      }
+    },
+    "/kingsguard.Kingsguard/ValidateToken": {
+      "post": {
+        "operationId": "Kingsguard_ValidateToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/kingsguardValidateTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/kingsguardValidateTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Kingsguard"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "kingsguardGetUserRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "kingsguardGetUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/kingsguardUser"
+        }
+      }
+    },
+    "kingsguardLoginRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "kingsguardLoginResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "expiredAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "kingsguardRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "kingsguardRegisterResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/kingsguardUser"
+        }
+      }
+    },
+    "kingsguardUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "kingsguardValidateTokenRequest": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "kingsguardValidateTokenResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/kingsguardUser"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
