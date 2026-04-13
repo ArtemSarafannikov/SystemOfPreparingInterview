@@ -1,0 +1,9 @@
+type Query {
+    getSubmission(id: UUID!): Submission @auth
+    listSubmissions(problemId: UUID!, pagination: Pagination!): ListSubmissionPagination @auth
+}
+
+type ListSubmissionPagination {
+    items: [Submission!]
+    pageInfo: PaginationInfo!
+}

@@ -1,0 +1,9 @@
+type Problem {
+    id: UUID!
+    summary: String!
+    description: String
+    author_id: String
+    created_at: Time!
+    updated_at: Time!
+    tests: [Test!]
+}

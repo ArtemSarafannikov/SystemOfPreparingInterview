@@ -1,0 +1,14 @@
+env: dev # dev/stg/prod
+
+# config of go app
+server:
+  host: 0.0.0.0 # recomended 0.0.0.0 for all ip listening
+  gql_port: 40040
+  graceful_shutdown_timeout: 5s
+  cors_allowed_origins:
+    - https://codefriend.ru
+    - http://localhost:3000
+  websocket_allowed_hosts:
+    - codefriend.ru
+    - localhost:40040
+    - 127.0.0.1:40040

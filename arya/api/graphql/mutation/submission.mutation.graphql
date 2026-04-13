@@ -1,0 +1,9 @@
+extend type Mutation {
+    sendSubmission(input: SendSubmissionInput!): Submission! @auth
+}
+
+input SendSubmissionInput {
+    problemId: UUID!
+    code: String!
+    programmingLanguage: ProgrammingLanguage!
+}

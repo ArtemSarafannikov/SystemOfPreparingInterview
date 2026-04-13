@@ -1,0 +1,12 @@
+extend type Query {
+    listProblems(filter: ListProblemsFilter, pagination: Pagination!): ListProblemsPagination
+}
+
+input ListProblemsFilter {
+    ids: [UUID!]
+}
+
+type ListProblemsPagination {
+    items: [Problem!]
+    pageInfo: PaginationInfo!
+}

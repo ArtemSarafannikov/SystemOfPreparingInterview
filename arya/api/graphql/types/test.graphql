@@ -1,0 +1,6 @@
+type Test {
+    id: Int!
+    problem: Problem!
+    input: String!
+    output: String!
+}

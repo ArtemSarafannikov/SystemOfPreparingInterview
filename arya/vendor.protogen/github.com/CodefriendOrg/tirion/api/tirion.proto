@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package tirion;
+
+option go_package = "github.com/CodefriendOrg/tirion/pkg/tirion;tirion";
+
+import "google/protobuf/timestamp.proto";
+
+service Tirion {
+  rpc GetProblem(GetProblemRequest) returns (GetProblemResponse);
+  rpc ListProblems(ListProblemsRequest) returns (ListProblemsResponse);
+  rpc CreateProblem(CreateProblemRequest) returns (Problem);
+
+  rpc ListTests(ListTestsRequest) returns (ListTestsResponse);
+}
+
+// Задача
+message Problem {
+  // UUID
+  string id = 1;
+  // Краткое описание задачи
+  string summary = 2;
+  // Описание задачи
+  string description = 3;
+  // Время обработки ответа в миллисекундах
+  int64 time_limit_ms = 4;
+  // Лимит памяти решения (user-space + куча интерпретатора), в килобайтах. В daenerys к лимиту Docker cgroup
+  // добавляется настраиваемый overhead (базовый образ и рантайм), чтобы контейнер стабильно стартовал.
+  int64 memory_limit_kb = 5;
+  // ID автора (UUID)
+  string author_id = 6;
+  // Последнее обновление задачи
+  google.protobuf.Timestamp updated_at = 7;
+  // Время создания
+  google.protobuf.Timestamp created_at = 8;
+}
+
+// Тест к задаче
+message Test {
+  // ID теста
+  int64 id = 1;
+  // ID задачи (UUID)
+  string problem_id = 2;
+  // Входные данные
+  string input_data = 3;
+  // Ожидаемый выход
+  string output_data = 4;
+  // Скрытый тест
+  bool is_hidden = 5;
+  // Последнее обновление задачи
+  google.protobuf.Timestamp updated_at = 6;
+  // Время создания
+  google.protobuf.Timestamp created_at = 7;
+}
+
+enum OrderDirection {
+  ASC = 0;
+  DESC = 1;
+}
+
+message Pagination {
+  uint64 page = 1;
+  uint64 per_page = 2;
+}
+
+message GetProblemRequest {
+  string id = 1;
+  bool with_tests = 2;
+}
+
+message GetProblemResponse {
+  Problem problem = 1;
+  repeated Test tests = 2;
+}
+
+message ListProblemsRequest {
+  message Filter {
+    repeated string id_in = 1;
+    optional string author_id_eq = 2;
+    google.protobuf.Timestamp created_at_lte = 3;
+    google.protobuf.Timestamp created_at_gte = 4;
+  }
+  enum OrderByField {
+    CREATED_AT = 0;
+  }
+
+  Filter filter = 1;
+  OrderByField order_by = 2;
+  OrderDirection order_direction = 3;
+  Pagination pagination = 4;
+}
+
+message ListProblemsResponse {
+  repeated Problem problems = 1;
+  uint64 total_items = 2;
+}
+
+message CreateProblemRequest {
+  string summary = 1;
+  string description = 2;
+  string author_id = 3;
+  int64 time_limit_ms = 4;
+  int64 memory_limit_kb = 5;
+}
+
+message ListTestsRequest {
+  message Filter {
+    string problem_id_eq = 1;
+    bool with_hidden = 2;
+  }
+  enum OrderByField {
+    CREATED_AT = 0;
+  }
+
+  Filter filter = 1;
+  OrderByField order_by = 2;
+  OrderDirection order_direction = 3;
+  Pagination pagination = 4;
+}
+
+message ListTestsResponse {
+  repeated Test tests = 1;
+  uint64 total_items = 2;
+}

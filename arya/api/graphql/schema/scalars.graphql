@@ -1,0 +1,5 @@
+scalar UUID
+
+scalar Time
+
+scalar Uint64

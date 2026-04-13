@@ -1,0 +1,6 @@
+env: dev
+
+server:
+  host: 0.0.0.0
+  gql_port: 40040
+  graceful_shutdown_timeout: 5s

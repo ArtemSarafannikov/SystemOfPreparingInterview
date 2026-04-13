@@ -1,0 +1,57 @@
+schema:
+  - api/graphql/**/*.graphql
+
+exec:
+  layout: follow-schema
+  dir: internal/app/graph/generated
+  package: generated
+
+model:
+  filename: internal/pkg/model/generated.go
+  package: model
+
+resolver:
+  layout: follow-schema
+  dir: internal/app/graph
+  package: graph
+  filename_template: "{name}.resolvers.go"
+
+autobind:
+  - "github.com/CodefriendOrg/arya/internal/pkg/model"
+
+models:
+  ID:
+    model:
+      - github.com/99designs/gqlgen/graphql.ID
+      - github.com/99designs/gqlgen/graphql.Int
+      - github.com/99designs/gqlgen/graphql.Int64
+      - github.com/99designs/gqlgen/graphql.Int32
+  Int:
+    model:
+      - github.com/99designs/gqlgen/graphql.Int64
+      - github.com/99designs/gqlgen/graphql.Int32
+      - github.com/99designs/gqlgen/graphql.Int
+      - github.com/99designs/gqlgen/graphql.Uint64
+      - github.com/99designs/gqlgen/graphql.Uint32
+      - github.com/99designs/gqlgen/graphql.Uint
+  Int64:
+    model:
+      - github.com/99designs/gqlgen/graphql.Int64
+  UInt64:
+    model:
+      - github.com/99designs/gqlgen/graphql.Uint64
+  UInt32:
+    model:
+      - github.com/99designs/gqlgen/graphql.Uint32
+  UUID:
+    model:
+      - github.com/99designs/gqlgen/graphql.UUID
+  Submission:
+    model:
+      - github.com/CodefriendOrg/arya/internal/pb/github.com/CodefriendOrg/daenerys/pkg/daenerys.Submission
+  Problem:
+    model:
+      - github.com/CodefriendOrg/arya/internal/pb/github.com/CodefriendOrg/tirion/pkg/tirion.Problem
+  Test:
+    model:
+      - github.com/CodefriendOrg/arya/internal/pb/github.com/CodefriendOrg/tirion/pkg/tirion.Test

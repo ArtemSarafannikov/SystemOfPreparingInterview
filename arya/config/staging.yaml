@@ -1,0 +1,6 @@
+env: prod
+
+server:
+  host: 0.0.0.0
+  gql_port: 80
+  graceful_shutdown_timeout: 10s

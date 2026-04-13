@@ -1,0 +1,16 @@
+package: config
+mock:
+  pb_file_path: ./internal/pb
+  mocks_output: ./internal/mock
+  package: mock
+
+clients:
+  - service: codefriend-kingsguard-zsqd1w:50051
+    package: "github.com/CodefriendOrg/arya/internal/pb/github.com/CodefriendOrg/kingsguard/pkg/kingsguard"
+    client: KingsguardClient
+  - service: codefriend-daenerys-dcma1l:50051
+    package: "github.com/CodefriendOrg/arya/internal/pb/github.com/CodefriendOrg/daenerys/pkg/daenerys"
+    client: DaenerysClient
+  - service: codefriend-tirion-hjtvwc:50051
+    package: "github.com/CodefriendOrg/arya/internal/pb/github.com/CodefriendOrg/tirion/pkg/tirion"
+    client: TirionClient

@@ -1,0 +1,10 @@
+type Submission {
+    id: UUID!
+    problemId: UUID!
+    userId: UUID!
+    submissionStatus: SubmissionStatus!
+    code: String!
+    language: ProgrammingLanguage!
+    createdAt: Time!
+    updatedAt: Time!
+}
